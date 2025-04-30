@@ -1,4 +1,5 @@
 require_relative "node"
+require_relative "linked_list"
 
 class HashMap
   def initialize
@@ -16,14 +17,11 @@ class HashMap
   end
 
   def set(key, value)
-    bucket_location = (hash(key) % 16) - 1 # calculates the bucket number
-    new_node = Node.new(key, value, nil)
+    bucket_location = (hash(key) % 16) # calculates the bucket number
 
     if @buckets[bucket_location].nil? # check if the bucket is empty
-      @buckets[bucket_location] = new_node
-      p @buckets
-    elsif 
-
+      list = LinkedList.new
+      @buckets[bucket_location] = list.prepend(key, value)
     end
   end
 end
