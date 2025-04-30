@@ -11,19 +11,37 @@ class LinkedList # rubocop:disable Style/Documentation
 
   def prepend(key, value)
     @head = Node.new(key, value, @head)
+    @tail = @head
     @size += 1
     self
   end
 
   def append(key, value)
-    if @head.nil?
-      prepend(key, value)
-      @tail = @head
-    else
-      @tail.next_node = Node.new(key, value, nil)
-      @tail = @tail.next_node
-      @size += 1
+    @tail.next_node = Node.new(key, value, nil)
+    @tail = @tail.next_node
+    @size += 1
+  end
+
+  def contains?(key)
+    tmp = @head
+    until tmp.nil?
+      return true if key == tmp.key
+
+      tmp = tmp.next_node
     end
+    false
+  end
+
+  def update_value(key, value)
+    tmp = @head
+
+    until tmp.nil?
+      break if key == tmp.key
+
+      tmp = tmp.next_node
+    end
+
+    tmp.value = value
   end
 
   class Node # rubocop:disable Style/Documentation

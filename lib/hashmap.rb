@@ -16,15 +16,24 @@ class HashMap
     hash_code
   end
 
-  def set(key, value)
-    bucket_location = (hash(key) % 16) # calculates the bucket number
+  def validate_index(key)
+    index = (hash(key) % 16) # calculates the bucket's index
 
-    if @buckets[bucket_location].nil? # check if the bucket is empty
+    raise IndexError if index.negative? || index >= @buckets.length
+
+    index
+  end
+
+  def set(key, value)
+    index = validate_index(key)
+
+    if @buckets[index].nil? # check if the bucket is empty
       list = LinkedList.new
-      @buckets[bucket_location] = list.prepend(key, value)
+      @buckets[index] = list.prepend(key, value)
+    elsif @buckets[index].contains?(key)
+      @buckets[index].update_value(key, value)
+    else
+      @buckets[index].append(key, value)
     end
   end
 end
-
-a = HashMap.new
-a.set("jade", "bugnos")
