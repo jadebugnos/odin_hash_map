@@ -5,3 +5,4 @@ new_hash_map = HashMap.new
 
 new_hash_map.set("Rama", "i am the old value")
 new_hash_map.set("Sita", "i am the new value")
+p new_hash_map.get("Sita")

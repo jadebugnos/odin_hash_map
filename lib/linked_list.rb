@@ -13,6 +13,8 @@ class LinkedList # rubocop:disable Style/Documentation
     @head = Node.new(key, value, @head)
     @tail = @head
     @size += 1
+
+    # we return self here (linked list object) so it can be stored in the array
     self
   end
 
@@ -42,6 +44,16 @@ class LinkedList # rubocop:disable Style/Documentation
     end
 
     tmp.value = value
+  end
+
+  def get_value(key)
+    tmp = @head
+
+    until tmp.nil?
+      return tmp.value if key == tmp.key
+
+      tmp = tmp.next_node
+    end
   end
 
   class Node # rubocop:disable Style/Documentation
