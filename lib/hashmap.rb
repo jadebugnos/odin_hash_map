@@ -69,4 +69,26 @@ class HashMap # rubocop:disable Style/Documentation
 
     @buckets[index].delete(key)
   end
+
+  def length
+    size = 0
+    @buckets.each do |bucket|
+      next if bucket.nil?
+
+      size += bucket.size
+    end
+    size
+  end
+
+  def clear
+    @buckets = Array.new(16, nil)
+  end
+
+  def keys
+    keys_arr = []
+
+    @buckets.each do |bucket|
+      
+    end
+  end
 end

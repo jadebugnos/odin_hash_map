@@ -7,6 +7,6 @@ new_hash_map.set("Rama", "i am the old value")
 new_hash_map.set("Sita", "i am the new value")
 p new_hash_map.get("Sita")
 p new_hash_map.has?("jade")
-new_hash_map.remove("Sita")
-p new_hash_map.has?("Sita")
-p new_hash_map.buckets
+p new_hash_map.remove("Rama")
+p new_hash_map.has?("Rama")
+p new_hash_map.length

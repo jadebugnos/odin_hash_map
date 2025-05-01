@@ -62,16 +62,18 @@ class LinkedList # rubocop:disable Style/Documentation
     # traverse the list until the last node or if the key is found
     current_node = current_node.next_node until current_node.nil? || current_node.key == key
 
-    return if current_node.nil? # return if the key is not found
+    return if current_node.nil? # exit early if the key not found
 
-    # if there is a previous node, bypass the current node or else update the head to be the current node
+    value = current_node.value
+
+    # if there is a previous node, bypass the current node or else update the head to be the next node
     if current_node.prev_node
       current_node.prev_node.next_node = current_node.next_node
     else
       @head = current_node.next_node
     end
 
-    # if there is a next node, by pass the current node or else delete the current node
+    # if there is a next node, bypass the current node or else update the tail to be the prev node
     if current_node.next_node
       current_node.next_node.prev_node = current_node.prev_node
     else
@@ -79,6 +81,7 @@ class LinkedList # rubocop:disable Style/Documentation
     end
 
     @size -= 1
+    value
   end
 
   class Node # rubocop:disable Style/Documentation
