@@ -84,6 +84,16 @@ class LinkedList # rubocop:disable Style/Documentation
     value
   end
 
+  def each
+    current_node = @head
+
+    until current_node.nil?
+      yield(current_node)
+
+      current_node = current_node.next_node
+    end
+  end
+
   class Node # rubocop:disable Style/Documentation
     attr_accessor :key, :value, :next_node, :prev_node
 

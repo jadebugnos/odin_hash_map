@@ -88,7 +88,25 @@ class HashMap # rubocop:disable Style/Documentation
     keys_arr = []
 
     @buckets.each do |bucket|
-      
+      next if bucket.nil?
+
+      bucket.each do |node|
+        keys_arr << node.key
+      end
     end
+    keys_arr
+  end
+
+  def values
+    values_arr = []
+
+    @buckets.each do |bucket|
+      next if bucket.nil?
+
+      bucket.each do |node|
+        values_arr << node.value
+      end
+    end
+    values_arr
   end
 end
