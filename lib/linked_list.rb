@@ -10,7 +10,7 @@ class LinkedList # rubocop:disable Style/Documentation
   end
 
   def prepend(key, value)
-    @head = Node.new(key, value, @head)
+    @head = Node.new(key, value, nil, nil)
     @tail = @head
     @size += 1
 
@@ -19,50 +19,76 @@ class LinkedList # rubocop:disable Style/Documentation
   end
 
   def append(key, value)
-    @tail.next_node = Node.new(key, value, nil)
+    @tail.next_node = Node.new(key, value, nil, @tail)
     @tail = @tail.next_node
     @size += 1
   end
 
   def contains?(key)
-    tmp = @head
-    until tmp.nil?
-      return true if key == tmp.key
+    current_node = @head
+    until current_node.nil?
+      return true if key == current_node.key
 
-      tmp = tmp.next_node
+      current_node = current_node.next_node
     end
     false
   end
 
   def update_value(key, value)
-    tmp = @head
+    current_node = @head
 
-    until tmp.nil?
-      break if key == tmp.key
+    until current_node.nil?
+      break if key == current_node.key
 
-      tmp = tmp.next_node
+      current_node = current_node.next_node
     end
 
-    tmp.value = value
+    current_node.value = value
   end
 
   def get_value(key)
-    tmp = @head
+    current_node = @head
 
-    until tmp.nil?
-      return tmp.value if key == tmp.key
+    until current_node.nil?
+      return current_node.value if key == current_node.key
 
-      tmp = tmp.next_node
+      current_node = current_node.next_node
     end
   end
 
-  class Node # rubocop:disable Style/Documentation
-    attr_accessor :key, :value, :next_node
+  def delete(key) # rubocop:disable Metrics/AbcSize
+    current_node = @head
 
-    def initialize(key, value, next_node)
+    # traverse the list until the last node or if the key is found
+    current_node = current_node.next_node until current_node.nil? || current_node.key == key
+
+    return if current_node.nil? # return if the key is not found
+
+    # if there is a previous node, bypass the current node or else update the head to be the current node
+    if current_node.prev_node
+      current_node.prev_node.next_node = current_node.next_node
+    else
+      @head = current_node.next_node
+    end
+
+    # if there is a next node, by pass the current node or else delete the current node
+    if current_node.next_node
+      current_node.next_node.prev_node = current_node.prev_node
+    else
+      @tail = current_node.prev_node
+    end
+
+    @size -= 1
+  end
+
+  class Node # rubocop:disable Style/Documentation
+    attr_accessor :key, :value, :next_node, :prev_node
+
+    def initialize(key, value, next_node, prev_node)
       @key = key
       @value = value
       @next_node = next_node
+      @prev_node = prev_node
     end
   end
   private_constant :Node

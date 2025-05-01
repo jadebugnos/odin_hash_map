@@ -1,7 +1,9 @@
 require_relative "node"
 require_relative "linked_list"
 
-class HashMap
+class HashMap # rubocop:disable Style/Documentation
+  attr_accessor :buckets
+
   def initialize
     @load_factor = nil
     @capacity = nil
@@ -50,5 +52,21 @@ class HashMap
     return @buckets[index].get_value(key) if @buckets[index].contains?(key)
 
     nil
+  end
+
+  def has?(key)
+    index = validate_index(key)
+
+    return false if @buckets[index].nil?
+
+    @buckets[index].contains?(key)
+  end
+
+  def remove(key)
+    index = validate_index(key)
+
+    return nil if @buckets[index].nil? || !@buckets[index].contains?(key)
+
+    @buckets[index].delete(key)
   end
 end
