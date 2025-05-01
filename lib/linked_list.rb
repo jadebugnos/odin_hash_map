@@ -66,14 +66,14 @@ class LinkedList # rubocop:disable Style/Documentation
 
     value = current_node.value
 
-    # if there is a previous node, bypass the current node or else update the head to be the next node
+    # if there is a previous node, bypass the current node. otherwise update the next node to be the new head
     if current_node.prev_node
       current_node.prev_node.next_node = current_node.next_node
     else
       @head = current_node.next_node
     end
 
-    # if there is a next node, bypass the current node or else update the tail to be the prev node
+    # if there is a next node, bypass the current node. otherwise update the prev node to be the new tail
     if current_node.next_node
       current_node.next_node.prev_node = current_node.prev_node
     else

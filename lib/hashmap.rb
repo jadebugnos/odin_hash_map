@@ -109,4 +109,17 @@ class HashMap # rubocop:disable Style/Documentation
     end
     values_arr
   end
+
+  def entries
+    entries_arr = []
+
+    @buckets.each do |bucket|
+      next if bucket.nil?
+
+      bucket.each do |node|
+        entries_arr << [node.key, node.value]
+      end
+    end
+    entries_arr
+  end
 end
