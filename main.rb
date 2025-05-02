@@ -1,15 +1,18 @@
 require_relative "lib/hashmap"
 require_relative "lib/linked_list"
 
-new_hash_map = HashMap.new
+test = HashMap.new
 
-new_hash_map.set("Rama", "i am the old value")
-new_hash_map.set("Sita", "i am the new value")
-p new_hash_map.get("Sita")
-p new_hash_map.has?("jade")
-p new_hash_map.remove("Rama")
-p new_hash_map.has?("Rama")
-p new_hash_map.length
-p new_hash_map.keys
-p new_hash_map.values
-p new_hash_map.entries
+test.set("apple", "red")
+test.set("banana", "yellow")
+test.set("carrot", "orange")
+test.set("dog", "brown")
+test.set("elephant", "gray")
+test.set("frog", "green")
+test.set("grape", "purple")
+test.set("hat", "black")
+test.set("ice cream", "white")
+test.set("jacket", "blue")
+test.set("kite", "pink")
+test.set("lion", "golden")
+p test.keys

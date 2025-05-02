@@ -1,5 +1,3 @@
-require_relative "node"
-
 class LinkedList # rubocop:disable Style/Documentation
   attr_accessor :head, :size, :tail
 
@@ -24,6 +22,7 @@ class LinkedList # rubocop:disable Style/Documentation
     @size += 1
   end
 
+  # this method will return true if the link list contains the key otherwise returns nil
   def contains?(key)
     current_node = @head
     until current_node.nil?
@@ -56,6 +55,7 @@ class LinkedList # rubocop:disable Style/Documentation
     end
   end
 
+  # this will delete a node in the link list based on the input key
   def delete(key) # rubocop:disable Metrics/AbcSize
     current_node = @head
 
@@ -84,6 +84,7 @@ class LinkedList # rubocop:disable Style/Documentation
     value
   end
 
+  # this is used as an iterator for the linked list
   def each
     current_node = @head
 
