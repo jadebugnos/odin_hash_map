@@ -5,9 +5,9 @@ class HashMap # rubocop:disable Style/Documentation
   attr_accessor :buckets
 
   def initialize
-    @load_factor = nil
-    @capacity = nil
+    @load_factor = 0.8
     @buckets = Array.new(16, nil)
+    @capacity = @buckets.size
   end
 
   def hash(key)
@@ -20,11 +20,32 @@ class HashMap # rubocop:disable Style/Documentation
   end
 
   def validate_index(key)
-    index = (hash(key) % 16)
+    handle_buckets_growth
+
+    index = (hash(key) % capacity)
 
     raise IndexError if index.negative? || index >= @buckets.length
 
     index
+  end
+
+  def handle_buckets_growth
+    limit = (@capacity * @load_factor).floor
+    entries = length
+
+    return unless entries > limit
+
+    old_buckets = @buckets
+    @capacity *= 2
+    @buckets = Array.new(@capacity, nil)
+
+    old_buckets.each do |bucket|
+      next if bucket.nil?
+
+      bucket.each do |node|
+        set(node.key, node.value)
+      end
+    end
   end
 
   def set(key, value)
@@ -82,6 +103,7 @@ class HashMap # rubocop:disable Style/Documentation
 
   def clear
     @buckets = Array.new(16, nil)
+    @capacity = 16
   end
 
   def keys
